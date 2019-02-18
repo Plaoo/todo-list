@@ -1,7 +1,7 @@
-from rest_framework import serialisers
-from models.todolist import TodoList
+from rest_framework import serializers
+from todolist.models import TodoList
 
-class TodoSerializer(serialisers.ModelSerializer):
+class TodoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TodoList
