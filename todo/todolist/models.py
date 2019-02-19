@@ -2,7 +2,7 @@ from django.db import models
 
 class TodoList(models.Model):
     text = models.CharField(max_length=50)
-    done = models.BooleanField(default = True)
+    done = models.BooleanField(default = False)
     created_at = models.DateTimeField(auto_now_add=True)
     completed_at = models.DateTimeField(auto_now=True)
 
