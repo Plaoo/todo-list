@@ -14,8 +14,13 @@ class TodoListModelTest(TestCase):
         correct_text = f'{todo.text}'
         self.assertEquals(correct_text, 'text test')
     
-    def test_text_content(self):
+    def test_status_content(self):
         todo = TodoList.objects.get(id=1)
         correct_status = False
         self.assertEquals(correct_status, False)
+    
+    def test_creation_content(self):
+        todo = TodoList.objects.get(id=1)
+        correct_creation = TodoList.objects.get(id=1).created_at
+        self.assertEquals(correct_creation, TodoList.objects.get(id=1).created_at)
 
