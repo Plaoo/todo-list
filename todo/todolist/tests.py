@@ -1,5 +1,5 @@
 from django.test import TestCase
-
+import datetime
 from .models import TodoList
 
 class TodoListModelTest(TestCase):
@@ -21,6 +21,6 @@ class TodoListModelTest(TestCase):
     
     def test_creation_content(self):
         todo = TodoList.objects.get(id=1)
-        correct_creation = TodoList.objects.get(id=1).created_at
+        correct_creation = datetime.date.today()
         self.assertEquals(correct_creation, TodoList.objects.get(id=1).created_at)
 
