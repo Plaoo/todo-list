@@ -14,6 +14,7 @@ class Home extends Component {
       });
     });
   }
+
   render() {
     const { tasks } = this.state;
     const textList = tasks.length ? (
@@ -21,9 +22,31 @@ class Home extends Component {
         return (
           <div className="post card" key={task.id}>
             <div className="card-content">
-              <span className="card-title">{task.text}</span>
-              <p>{task.done}</p>
-              <p>{task.created_at}</p>
+              {task.done == false ? (
+                <div>
+                  <span>
+                    {" "}
+                    <bold>{task.text}</bold>
+                  </span>
+                  <p>{task.done}</p>
+                  <p>{task.created_at}</p>
+                </div>
+              ) : (
+                <div>
+                  <span>
+                    {" "}
+                    <del>
+                      <bold>{task.text}</bold>
+                    </del>
+                  </span>
+                  <p>
+                    <del>{task.done}</del>
+                  </p>
+                  <p>
+                    <del>{task.created_at}</del>
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         );
