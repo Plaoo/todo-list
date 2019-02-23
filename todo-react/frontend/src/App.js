@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
 
+const usernamePasswordBuffer = Buffer.from("admin: admin");
+const base64data = usernamePasswordBuffer.toString("base64");
+
 const server = "http://127.0.0.1:8000/api/todo/";
 class Home extends Component {
   state = {
@@ -16,21 +19,26 @@ class Home extends Component {
     });
   }
 
-  handleEvent(id) {
-    console.log(id);
-    axios
-      .put(server + id + "/", {
-        headers: {
-          "Content-Type": "application/json"
-        },
-        auth: {
-          username: "admin",
-          password: "admin"
-        },
-        data: {
-          done: "false"
-        }
-      })
+  putEvent(text, id) {
+    console.log(text);
+    axios({
+      // withCredentials: true,
+      method: "put",
+      url: "http://127.0.0.1:8000/api/todo/" + id + "/",
+      headers: {
+        Authorization: "Basic YWRtaW46YWRtaW4=",
+        "Content-Type": "application/json"
+      },
+
+      auth: {
+        username: "admin",
+        password: "admin"
+      },
+      data: {
+        done: "true",
+        text: text
+      }
+    })
       .then(function(response) {
         console.log(response);
       })
@@ -51,7 +59,7 @@ class Home extends Component {
                 <div>
                   <input
                     type="checkbox"
-                    onClick={() => this.handleEvent(task.id)}
+                    onClick={() => this.putEvent(task.text, task.id)}
                   />
                   <p>{task.created_at}</p>
                   <p>{task.done}</p>
@@ -61,7 +69,6 @@ class Home extends Component {
                 </div>
               ) : (
                 <div>
-                  <input type="checkbox" />
                   <p>
                     <del>{task.created_at}</del>
                   </p>
