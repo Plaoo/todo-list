@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-const usernamePasswordBuffer = Buffer.from("admin: admin");
-const base64data = usernamePasswordBuffer.toString("base64");
-
 const server = "http://127.0.0.1:8000/api/todo/";
 class Home extends Component {
-  state = {
-    tasks: []
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      tasks: []
+    };
+  }
 
   componentDidMount() {
     axios.get(server).then(res => {
@@ -20,19 +20,14 @@ class Home extends Component {
   }
 
   putEvent(text, id) {
-    console.log(text);
+    // console.log(text);
     axios({
       // withCredentials: true,
       method: "put",
-      url: "http://127.0.0.1:8000/api/todo/" + id + "/",
+      url: server + id + "/",
       headers: {
         Authorization: "Basic YWRtaW46YWRtaW4=",
         "Content-Type": "application/json"
-      },
-
-      auth: {
-        username: "admin",
-        password: "admin"
       },
       data: {
         done: "true",
